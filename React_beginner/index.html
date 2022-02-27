@@ -12,28 +12,36 @@
     crossorigin
     src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
   ></script>
-  <script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
     const root = document.getElementById("root");
-    // 1. 유효한 html 태그, 2. property(id, class..), 3. 내용
-    const h3 = React.createElement(
-      "h3",
-      { id: "title",
-        onMouseEnter: () => console.log("mouse enter"),
-      },
-      "Hello, I am a span"
+    //JSX
+    function Title() {
+      return (
+        <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+          Hello, I am a title
+        </h3>
+      );
+    }
+    const Button = () => (
+        <button
+          style={{
+            backgroundColor: "tomato",
+          }}
+          onClick={() => console.log("I'm clicked")}
+        >
+          Click me
+        </button>
+      );
+
+      // 컴포넌트의 첫 글자는 무조건 대문자!! 무조건!!
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
     );
-    const btn = React.createElement(
-      "button",
-      {
-        onClick: () => console.log("I'm clicked"),
-        style: {
-          backgroundColor: "tomato"
-        }
-      },
-      "Click me"
-    );
-    const container = React.createElement("div", null, [h3, btn]);
     // 사용자에게 보여준다 >> render
-    ReactDOM.render(container, root);
+    ReactDOM.render(<Container />, root);
   </script>
 </html>
