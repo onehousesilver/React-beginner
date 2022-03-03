@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head></head>
+  <head> </head>
   <body>
     <div id="root"></div>
   </body>
@@ -16,6 +16,7 @@
   <script type="text/babel">
     const root = document.getElementById("root");
 
+    // 시에서 분으로
     function MinutesToHours() {
       const [minutes, setMinutes] = React.useState(0);
       const [flipped, setFlipped] = React.useState(false);
@@ -54,32 +55,67 @@
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>{flipped ? "몇분이야?" : "몇시야?"}</button>
+          <button onClick={onFlip}>{flipped ? "몇시야?" : "몇분이야?"}</button>
         </div>
       );
     }
 
-    // K
-    function KmToMiles() {
-      return <h3>KM 2 M</h3>;
+    // KM에서 Mile로
+    function KmToMile() {
+      const [km, setKm] = React.useState(0);
+      const [flippedKm, setFlippedKm] = React.useState(false);
+      const onChange = (e) => {
+        setKm((current) => e.target.value);
+      };
+      const reset = () => setKm(0);
+      const onFlip = () => {
+        reset();
+        setFlippedKm((current) => !current);
+      };
+      return (
+        <div>
+          <h3>{flippedKm ? "Mile에서 KM로🏃🏻‍♂️" : "Km에서 Mile로🏃🏻‍♂️"}</h3>
+          <label Htmlfor="km">KM: </label>
+          <input
+            value={flippedKm ? Math.round(km * 1.609) : km}
+            id="km"
+            type="number"
+            min="0"
+            onChange={onChange}
+            disabled={flippedKm}
+          />
+          <div>
+            <label Htmlfor="miles">Miles: </label>
+            <input
+              value={flippedKm ? km : Math.round(km / 1.609)}
+              id="miles"
+              type="number"
+              min="0"
+              onChange={onChange}
+              disabled={!flippedKm}
+            />
+          </div>
+          <button onClick={reset}> Reset </button>
+          <button onClick={onFlip}>{flippedKm ? "KM?" : "Miles?"}</button>
+        </div>
+      );
     }
     function App() {
-      const [index, setIndex] = React.useState(0);
+      const [index, setIndex] = React.useState("0");
       const onSelect = (e) => {
         setIndex(e.target.value);
       };
       return (
         <div>
-          <h1>Super Converter</h1>
+          <h1>바꿔바꿔</h1>
           <select value={index} onChange={onSelect}>
-            <option value="0"> Minutes & Hours</option>
-            <option value="1"> KM & Miles</option>
+            <option value="0"> Minutes & Hours </option>
+            <option value="1"> KM & Miles </option>
           </select>
-          {index === "0" ? <MinutesToHours /> : <KmToMiles />}
+          {index === "0" ? <MinutesToHours /> : <KmToMile />}
         </div>
       );
     }
-    // 1. 시작할 때 렌더링
     ReactDOM.render(<App />, root);
   </script>
 </html>
