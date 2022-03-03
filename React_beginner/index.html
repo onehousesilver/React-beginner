@@ -16,43 +16,66 @@
   <script type="text/babel">
     const root = document.getElementById("root");
 
-    function App() {
-      const [amount, setAmount] = React.useState(0);
+    function MinutesToHours() {
+      const [minutes, setMinutes] = React.useState(0);
       const [flipped, setFlipped] = React.useState(false);
       const onChange = (e) => {
-        setAmount(e.target.value);
+        setMinutes((current) => e.target.value);
       };
-      const reset = () => setAmount(0);
       const onFlip = () => {
         reset();
         setFlipped((current) => !current);
       };
+      const reset = () => setMinutes(0);
       return (
         <div>
-          <h1>Super Converter</h1>
-          <label htmlFor="minute">Minute</label>
+          <h3>{flipped ? "이정도면 몇분이지?⏰" : "이정도면 몇시간이지?⏰"}</h3>
+          <label htmlFor="minutes">Minutes: </label>
           <input
-            value={flipped ? amount * 60 : amount}
-            id="minute"
+            value={flipped ? minutes * 60 : minutes}
+            id="minutes"
             placeholder="Minutes"
             type="number"
+            min="0"
             onChange={onChange}
             disabled={flipped}
           />
-          <h4>You want to convert {amount}</h4>
+          <br />
           <div>
-            <label htmlFor="hour">Hour</label>
+            <label htmlFor="hours">Hours: </label>
             <input
-              value={flipped ? amount : Math.round(amount / 60)}
-              id="hour"
+              value={flipped ? minutes : Math.round(minutes / 60)}
+              id="hours"
               placeholder="Hours"
               type="number"
-              disabled={!flipped}
+              min="0"
               onChange={onChange}
+              disabled={!flipped}
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
+          <button onClick={onFlip}>{flipped ? "몇분이야?" : "몇시야?"}</button>
+        </div>
+      );
+    }
+
+    // K
+    function KmToMiles() {
+      return <h3>KM 2 M</h3>;
+    }
+    function App() {
+      const [index, setIndex] = React.useState(0);
+      const onSelect = (e) => {
+        setIndex(e.target.value);
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0"> Minutes & Hours</option>
+            <option value="1"> KM & Miles</option>
+          </select>
+          {index === "0" ? <MinutesToHours /> : <KmToMiles />}
         </div>
       );
     }
