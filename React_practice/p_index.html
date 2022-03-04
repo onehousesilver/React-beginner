@@ -6,25 +6,19 @@
   </body>
   <script
     crossorigin
-    src="https://unpkg.com/react@17/umd/react.production.min.js"
-  ></script>
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js"
-    integrity="sha512-M1OTu9xD1JPdXo2cOeJI+Z/f8P6E/pqK9ug3G8PRNLw1caUePewEmpFYKSYh4LEz483qnyB/UTlgX1Q4VCEsKg=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
+    src="https://unpkg.com/react@17.0.2/umd/react.development.js "
   ></script>
   <script
     crossorigin
     src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
   ></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    function Btn({ text, changeValue, fontSize }) {
+    function Btn({ text, fontSize }) {
       return (
         <button
-          onClick={changeValue}
           style={{
             backgroundColor: "tomato",
             color: "white",
@@ -39,21 +33,16 @@
       );
     }
     //Memorize를 통해 한 번만 렌더링 되게끔!
-    const MemorizedBtn = React.memo(Btn);
 
     Btn.propTypes = {
-      text: PropTypes.string,
+      text: PropTypes.string.isRequired,
       fontSize: PropTypes.number,
     };
-    
+
     function App() {
-      const [value, setValue] = React.useState("Save Changes");
-      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text={value} changeValue={changeValue} fontSize={18} />
-          <Btn text={17} fontSize={"18"} />
-          <MemorizedBtn text="Continue" />
+          <Btn text="Button" fontSize={18} />
         </div>
       );
     }
