@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./Detail.module.css";
 
 function Detail() {
+  const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState([]);
   const { id } = useParams();
   const getMovieId = async () => {
@@ -9,19 +11,43 @@ function Detail() {
       await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
     ).json();
     setMovie(json.data.movie);
+    setLoading(false);
     console.log(json);
   };
   useEffect(() => {
     getMovieId();
   }, []);
   return (
-    <div>
-      <img src={movie.medium_cover_image} alt={movie.title} />
-      <h1>영화 제목: {movie.title}</h1>
-      <h3>영화 내용: {movie.description_intro}</h3>
-      <h3>영화 장르: {movie.genres}</h3>
-      <h3>개봉년도: {movie.year}</h3>
-      <h3>평점: {movie.rating}</h3>
+    <div className={styles.movie}>
+      {loading ? (
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
+      ) : (
+        <div>
+          <h1 className={styles.title}>{movie.title}</h1>
+          <h3 className={styles.genres}>
+            {movie.genres.map((g) => (
+              <li key={g}>{g}</li>
+            ))}
+          </h3>
+          <img
+            className={styles.img}
+            src={movie.medium_cover_image}
+            alt={movie.title}
+          />
+          <h3 className={styles.year}>{movie.year}</h3>
+          <h3 className={styles.rating}>
+            <p>⭐ {movie.rating}</p>
+          </h3>
+
+          <p>
+            {movie.description_intro > 900
+              ? `${movie.description_intro.slice(0, 900)}...`
+              : movie.description_intro}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

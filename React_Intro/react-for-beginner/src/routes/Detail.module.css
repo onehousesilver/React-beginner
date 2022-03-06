@@ -1,0 +1,48 @@
+.movie {
+  margin: 50px auto;
+  width: 50%;
+  background-color: white;
+  margin-bottom: 70px;
+  font-weight: 300;
+  padding: 20px;
+  border-radius: 10px;
+  color: #adaeb9;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+}
+
+.movie .title {
+  text-align: center;
+}
+
+.movie .img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+    0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+}
+
+.movie .year {
+  text-align: center;
+}
+
+.movie .rating {
+  text-align: center;
+}
+
+.movie .genres{
+  text-align: center;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #333
+}
+
+.movie .genres li{
+  text-align: center;
+  margin-right: 10px;
+}
